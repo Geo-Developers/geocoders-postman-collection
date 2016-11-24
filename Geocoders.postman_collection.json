@@ -1,0 +1,918 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Geocoders",
+		"_postman_id": "89c72704-a398-5e50-740f-26e15513efff",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ArcGIS Online (By Esri)",
+			"description": "",
+			"item": [
+				{
+					"name": "ArcGIS Online - Get Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var jsonData = JSON.parse(responseBody);\ntests[\"Token is present\"] = responseBody.has(\"token\");\n\npostman.setEnvironmentVariable(\"token\", jsonData.token);\n"
+							}
+						}
+					],
+					"request": {
+						"url": "https://www.arcgis.com/sharing/rest/generateToken",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "f",
+									"value": "json",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "client",
+									"value": "referer",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "ip",
+									"value": "{{referrerIp}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "referer",
+									"value": "arcgis.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "expiration",
+									"value": "21600",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": "[Full description of the service](http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Generate_Token/02r3000000m5000000/)"
+					},
+					"response": []
+				},
+				{
+					"name": "ArcGIS Online - FindAddressCandidates",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var tests;"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var prScript"
+							}
+						}
+					],
+					"request": {
+						"url": "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SingleLine",
+									"value": "Calle emilio muñoz 35, Madrid",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "categorforStoragey",
+									"value": "true",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "outFields",
+									"value": "*",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "f",
+									"value": "pjson",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": "[Full description of the service](http://resources.arcgis.com/en/help/rest/apiref/candidates.html) \n// [World Geocoding Service](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find-address-candidates.htm)\n// [View JS Demo: input autocomplete](http://developers.arcgis.com/javascript/samples/widget_directions_basic/)"
+					},
+					"response": []
+				},
+				{
+					"name": "ArcGIS Online - Find",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var tests;"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var prScript"
+							}
+						}
+					],
+					"request": {
+						"url": "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/find",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "text",
+									"value": "Calle emilio muñoz 35, Madrid",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "categorforStoragey",
+									"value": "true",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "outFields",
+									"value": "*",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "f",
+									"value": "pjson",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": "Geocodes one location per request; the input address is specified in a single parameter.\n\n[Full description of the service](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find.htm)\n\n"
+					},
+					"response": []
+				},
+				{
+					"name": "ArcGIS Online - geocodeAddresses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var tests;"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var prScript"
+							}
+						}
+					],
+					"request": {
+						"url": "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/geocodeAddresses?addresses={     \"records\": [         {             \"attributes\": {                 \"OBJECTID\": 1,                 \"Address\": \"Calle elena\",                 \"City\": \"Granada\"            }         },         {             \"attributes\": {                 \"OBJECTID\": 2,                 \"Address\": \"Emilio Muñoz 35\",                 \"City\": \"Madrid\",                 \"Region\": \"CA\",                 \"Postal\": \"28037\"             }         }     ] }&sourceCountry=ES&token={{token}}&f=pjson",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "f",
+									"value": "json",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "client",
+									"value": "referer",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "ip",
+									"value": "{{referrerIp}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "referer",
+									"value": "arcgis.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "expiration",
+									"value": "21600",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": "[Full description of the service](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-geocode-addresses.htm)\n\n"
+					},
+					"response": []
+				},
+				{
+					"name": "ArcGIS Online - reverseGeocode",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var tests;"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var prScript"
+							}
+						}
+					],
+					"request": {
+						"url": "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?token={{token}}&f=pjson&location=-3.626966,40.432546",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "f",
+									"value": "json",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "client",
+									"value": "referer",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "ip",
+									"value": "{{referrerIp}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "referer",
+									"value": "arcgis.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "expiration",
+									"value": "21600",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": "[Full description of the service:](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-reverse-geocode.htm) //\n[View JS Demo](http://timw1984.github.io/WebApp-Location/)\n"
+					},
+					"response": []
+				},
+				{
+					"name": "ArcGIS Online - suggest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var tests;"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var prScript"
+							}
+						}
+					],
+					"request": {
+						"url": "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?token={{token}}&f=pjson&location=-3.626966,40.432546&text=em&maxSuggestions=30",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "f",
+									"value": "json",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "client",
+									"value": "referer",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "ip",
+									"value": "{{referrerIp}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "referer",
+									"value": "arcgis.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "expiration",
+									"value": "21600",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": "[Full description of the service](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-suggest.htm)\n\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bing",
+			"description": "",
+			"item": [
+				{
+					"name": "Bing - Location by Query (Forward GeoCoder)",
+					"request": {
+						"url": "http://dev.virtualearth.net/REST/v1/Locations/calle emilio muñoz,madrid?o=json&key={{apikey}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](https://msdn.microsoft.com/en-us/library/ff701711.aspx)"
+					},
+					"response": []
+				},
+				{
+					"name": "Bing - Location by Point (Reverse GeoCoder)",
+					"request": {
+						"url": "http://dev.virtualearth.net/REST/v1/Locations/47.64054,-122.12934?o=json&key={{apikey}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](https://msdn.microsoft.com/en-us/library/ff701710.aspx)"
+					},
+					"response": []
+				},
+				{
+					"name": "Bing - Location by Address",
+					"request": {
+						"url": "http://dev.virtualearth.net/REST/v1/Locations/US/WA/98052/Redmond/1%20Microsoft%20Way?o=json&key={{apikey}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](https://msdn.microsoft.com/en-us/library/ff701714.aspx)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DataScienceToolkit",
+			"description": "",
+			"item": [
+				{
+					"name": "DataScienceToolkit - Forward Geocoder",
+					"request": {
+						"url": "http://www.datasciencetoolkit.org/maps/api/geocode/json?sensor=false&address=nerja",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](http://www.datasciencetoolkit.org/)"
+					},
+					"response": []
+				},
+				{
+					"name": "DataScienceToolkit - Coordinates to Politics (Reverse Geocoder)",
+					"request": {
+						"url": "http://www.datasciencetoolkit.org/coordinates2politics/36.75278,-3.8744",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](http://www.datasciencetoolkit.org/)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Google Maps",
+			"description": "",
+			"item": [
+				{
+					"name": "Google - Forward Geocoding",
+					"request": {
+						"url": "https://maps.googleapis.com/maps/api/geocode/json?address=emilio muñoz madrid&key={{apikey}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](https://developers.google.com/maps/documentation/geocoding/intro#GeocodingRequests)"
+					},
+					"response": []
+				},
+				{
+					"name": "Google - Reverse Geocoding",
+					"request": {
+						"url": "https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key={{apikey}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](https://developers.google.com/maps/documentation/geocoding/intro#ReverseGeocoding)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HERE",
+			"description": "",
+			"item": [
+				{
+					"name": "HERE - Geocode Resource",
+					"request": {
+						"url": "https://geocoder.api.here.com/6.2/geocode.json?app_id={{appid}}&app_code={{appcode}}&gen=9&searchtext=Emilio muñoz,madrid",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](https://developer.here.com/rest-apis/documentation/geocoder/topics/resource-geocode.html)"
+					},
+					"response": []
+				},
+				{
+					"name": "HERE - Reverse Geocode Resource",
+					"request": {
+						"url": "https://geocoder.api.here.com/6.2/reversegeocode.json?app_id={{appid}}&app_code={{appcode}}&gen=9&prox=50.112,8.683,100&mode=retrieveAddresses",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](https://developer.here.com/rest-apis/documentation/geocoder/topics/resource-reverse-geocode.html)"
+					},
+					"response": []
+				},
+				{
+					"name": "HERE - Landmark Geocode Request",
+					"request": {
+						"url": "https://geocoder.api.here.com/6.2/search.json?app_id={{appid}}&app_code={{appcode}}&gen=9&searchtext=Ferry+Building,+San+Francisco",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MapQuest",
+			"description": "",
+			"item": [
+				{
+					"name": "MapQuest - Forward GeoCode",
+					"request": {
+						"url": "http://www.mapquestapi.com/geocoding/v1/address?key={{key}}&location=Emilio muñoz 35, madrid",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](https://developer.mapquest.com/documentation/geocoding-api/)"
+					},
+					"response": []
+				},
+				{
+					"name": "MapQuest - Forward GeoCode (5-box Input)",
+					"request": {
+						"url": "http://www.mapquestapi.com/geocoding/v1/address?key={{key}}&street=1600+Pennsylvania+Ave+NW&city=Washington&state=DC&postalCode=20500",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](https://developer.mapquest.com/documentation/geocoding-api/#single)"
+					},
+					"response": []
+				},
+				{
+					"name": "MapQuest - Reverse GeoCode",
+					"request": {
+						"url": "http://www.mapquestapi.com/geocoding/v1/reverse?key={{key}}&location=30.333472,-81.470448&includeRoadMetadata=true&includeNearestIntersection=true",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](https://developer.mapquest.com/documentation/geocoding-api/reverse/get/)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mapbox",
+			"description": "",
+			"item": [
+				{
+					"name": "Mapbox - Geocoding",
+					"request": {
+						"url": "https://api.mapbox.com/geocoding/v5/mapbox.places/emilio%20muñoz.json?access_token={{token}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](https://www.mapbox.com/api-documentation/?language=JavaScript#request-format)"
+					},
+					"response": []
+				},
+				{
+					"name": "Mapbox - Reverse Geocoding",
+					"request": {
+						"url": "https://api.mapbox.com/geocoding/v5/mapbox.places/-3.626966,40.432546.json?access_token={{token}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Same as geocoding API](https://www.mapbox.com/api-documentation/?language=JavaScript#geocoding)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mapzen",
+			"description": "",
+			"item": [
+				{
+					"name": "Mapzen - Search (Forward Geocoding)",
+					"request": {
+						"url": "https://search.mapzen.com/v1/search?text=emilio muñoz, madrid&api_key={{apikey}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](https://mapzen.com/documentation/search/search/)"
+					},
+					"response": []
+				},
+				{
+					"name": "Mapzen - Reverse Geocoding",
+					"request": {
+						"url": "https://search.mapzen.com/v1/reverse?api_key={{apikey}}&point.lat=48.858268&point.lon=2.294471",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](https://mapzen.com/documentation/search/reverse/)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OSM",
+			"description": "",
+			"item": [
+				{
+					"name": "OSM - Search",
+					"request": {
+						"url": "http://nominatim.openstreetmap.org/search?format=json&q=emilio muñoz 35 Madrid",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](http://wiki.openstreetmap.org/wiki/Nominatim#Search)"
+					},
+					"response": []
+				},
+				{
+					"name": "OSM - Reverse",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var tests;"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var prScript"
+							}
+						}
+					],
+					"request": {
+						"url": "http://nominatim.openstreetmap.org/reverse?format=json&lat=40.432546&lon=-3.626966",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "f",
+									"value": "json",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "client",
+									"value": "referer",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "ip",
+									"value": "{{referrerIp}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "referer",
+									"value": "arcgis.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "expiration",
+									"value": "21600",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": "[Full description of the service:](http://wiki.openstreetmap.org/wiki/Nominatim#Reverse_Geocoding)"
+					},
+					"response": []
+				},
+				{
+					"name": "OSM - Address lookup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var tests;"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": "var prScript"
+							}
+						}
+					],
+					"request": {
+						"url": " http://nominatim.openstreetmap.org/lookup?osm_ids=R146656,W104393803,N240109189&format=json",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "f",
+									"value": "json",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "client",
+									"value": "referer",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "ip",
+									"value": "{{referrerIp}}",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "referer",
+									"value": "arcgis.com",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "expiration",
+									"value": "21600",
+									"type": "text",
+									"enabled": true
+								}
+							]
+						},
+						"description": "[Full description of the service:](http://wiki.openstreetmap.org/wiki/Nominatim#Address_lookup)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OpenCage",
+			"description": "",
+			"item": [
+				{
+					"name": "OpenCage - Forward Geocoding",
+					"request": {
+						"url": "https://api.opencagedata.com/geocode/v1/json?q=emilio+mu%C3%B1oz+madrid&pretty=1&key={{api-key}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](https://geocoder.opencagedata.com/api#forward)"
+					},
+					"response": []
+				},
+				{
+					"name": "OpenCage - Reverse Geocoding",
+					"request": {
+						"url": "https://api.opencagedata.com/geocode/v1/json?q=-23.5373732,-46.8374628&pretty=1&key={{api-key}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](https://geocoder.opencagedata.com/api#reverse-resp)"
+					},
+					"response": []
+				},
+				{
+					"name": "OpenCage - Forward with Google Compatibility",
+					"request": {
+						"url": "https://api.opencagedata.com/geocode/v1/google-v3-json?address=emilio+mu%C3%B1oz+madrid&pretty=1&key={{api-key}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"description": "[Full documentation](https://geocoder.opencagedata.com/api#google-compat)"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
